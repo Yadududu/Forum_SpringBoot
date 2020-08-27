@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>登陆</title>
+<link rel="stylesheet" href="/asserts/css/login.css" th:href="@{/asserts/css/login.css}"/>
+<link rel="stylesheet" href="/asserts/css/head.css" th:href="@{/asserts/css/head.css}"/>
+</head>
+
+<body>
+	<div class="dvhead">
+		<div class="dvlogo">
+			<a href="/index">小小论坛</a>
+		</div>
+		<div class="dvreg"></div>
+	</div>
+	<section class="sec">
+		<form action="/loginUser"
+			method="post">
+			<div class="register-box">
+				<label class="username_label"> 用 户 名
+					<input maxlength="20" name="username" type="text" placeholder="用 户 名" />
+				</label>
+				<div class="tips"></div>
+			</div>
+			<div class="register-box">
+				<label class="other_label"> 密 码
+					<input maxlength="20" name="password" type="password" />
+				</label>
+				<div class="tips" name="error" Style="color: red" th:text="${error }"></div>
+			</div>
+
+			<div class="arguement">
+				<a href="register">没有账号,立即注册</a> <a href="findPassword">忘记密码</a>
+				<div class="tips"></div>
+			</div>
+			<div class="submit_btn">
+				<button type="submit" id="submit_btn">立 即 登 录</button>
+			</div>
+		</form>
+
+	</section>
+</body>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.lmj.forum.dao.AnswerMapper">
+
+	<resultMap type="Answer" id="answerlist">
+		<id property="id" column="id" />
+		<result property="atime" column="atime" />
+		<result property="acontent" column="acontent" />
+		<result property="u_id" column="u_id" />
+		<result property="d_id" column="d_id" />
+		<association property="user" javaType="User">
+			<id property="id" column="id" />
+			<result property="username" column="username" />
+		</association>
+	</resultMap>
+	<select id="FindAllAnswer" parameterType="String" resultMap="answerlist">
+		select 
+		answer.id,
+		answer.atime,
+		answer.acontent,
+		answer.u_id,
+		answer.d_id,
+		user.username 
+		FROM answer
+        join user 
+        on answer.u_id=user.id
+		where d_id = #{dataId}
+		order by answer.atime
+	</select>
+	
+	<insert id="InsertAnswer" parameterType="Answer">
+		<selectKey keyProperty="id" resultType="string" order="BEFORE">
+			select replace(uuid(), '-', '') as id from dual
+		</selectKey>
+		insert into answer(id,atime,acontent,u_id,d_id) value(#{id},#{atime},#{acontent},#{u_id},#{d_id});
+	</insert>
+	
+	<select id="DeleteAnswerById" parameterType="String">
+		delete from answer where id = #{answerId};
+	</select>
+
+	<select id="DeleteAnswerByDid" parameterType="String">
+		delete from answer where d_id = #{dataId};
+	</select>
+	
+	<select id="DeleteAnswerByAnswer" parameterType="Answer">
+		delete from answer 
+		<where>
+		<!-- where标签可以去掉开头的AND -->
+			<if test="id!=null and id!=''">
+			and id = #{id};
+			</if>
+			<if test="acontent!=null and acontent!=''">
+			and acontent = #{acontent};
+			</if>
+			<if test="d_id!=null and d_id!=''">
+			and d_id = #{d_id};
+			</if>
+			<if test="u_id!=null and u_id!=''">
+			and u_id = #{u_id};
+			</if>
+		</where> 
+	</select>
+	
+</mapper>

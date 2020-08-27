@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.lmj.forum.dao.UserMapper">
+
+	<select id="FindUserByUsernameAndPassword" resultType="User">
+		Select * From user where username = #{username} and password = #{password}
+	</select>
+	
+	<select id="FindUserByUsername" parameterType="String" resultType="User">
+		Select * From user where username = #{value}
+	</select>
+	
+	<select id="FindUserById" parameterType="String" resultType="User">
+		Select * From user where id = #{id}
+	</select>
+	
+	<select id="FindUserByUsernameAndPhonenum" resultType="User">
+		Select * From user where username = #{username} and phonenum = #{phonenum}
+	</select>
+	
+	<insert id="InsertUser" parameterType="User">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(), '-', '') as id from dual
+		</selectKey>
+		insert into user(id,admin,username,password,phonenum) value(#{id},0,#{username},#{password},#{phonenum})
+	</insert>
+	
+	<select id="UpdateUserPassword" parameterType="User">
+		Update user set password = #{password} where username = #{username} and phonenum = #{phonenum}
+	</select>
+	
+	<select id="FindUserByUser" parameterType="User" resultType="User">
+		Select * 
+		From user 
+		<where>
+		<!-- where标签可以去掉开头的AND -->
+			<if test="id!=null and id!=''">
+			and id = #{id}
+			</if>
+			<if test="admin!=null and admin!=''">
+			and admin = #{admin} 
+			</if>
+			<if test="username!=null and username!=''">
+			and username = #{username} 
+			</if>
+			<if test="password!=null and password!=''">
+			and password = #{password} 
+			</if>
+			<if test="phonenum!=null and phonenum!=''">
+			and phonenum = #{phonenum}
+			</if>
+		</where> 
+	</select>
+	
+</mapper>

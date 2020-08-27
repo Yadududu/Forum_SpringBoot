@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>小小论坛</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="/asserts/css/index.css" th:href="@{/asserts/css/index.css}">
+</head>
+<body>
+<div class="dvhead">
+	<div class="dvlogo"><a href="/index">小小论坛</a></div>
+	<div class="dvreg" th:if="${session.user==null}">
+		已有账号，立即&nbsp;<a href="/login">登录</a>
+	</div>
+	<div class="dvreg" th:if="${session.user!=null } ">
+		<strong th:text="${session.user.username}"></strong>
+		<a href="/logoutUser"> 注销</a>
+	</div>
+</div>
+<div class="dvContent">
+	<div class="dvquesleft">
+
+		<div class="dvqstitle">
+			<image class="imgbean" src="/asserts/images/bean.jpg" th:href="@{/asserts/images/bean.jpg}">
+				<span class="qsTitle">讨论区</span>
+		</div>
+		<div class="dvtabhead">
+			<div class="tabheads tabcurrent">全部帖子</div>
+<!-- 			<div class="tabheads">我的帖子</div> -->
+<!-- 			<div class="tabheads">我的关注</div> -->
+		</div>
+		<div class="tabContent">
+			<div class="tab" th:each="data:${initDatas }">
+					<div class="dvques">
+						<div class="quesCount">
+							<div class="count" th:text="${data.ansnum }"></div>
+							<div class="ques">回复数</div>
+						</div>
+						<div class="quesContent">
+							<div class="quesTitle">
+									<a href="#" th:href="@{/data/detailPara(dId=${data.id })}">[[${data.title }]]</a>
+							</div>
+							<div class="qContent" th:utext="${data.dcontent }"></div>
+							<div class="tags">
+<!-- 								<span class="tag">excel</span><span class="tag">程序</span> -->
+							</div>
+							<div class="quesUser">
+								<image src="/asserts/images/0.gif" class="imguser" th:href="@{/asserts/images/0.gif}"/>
+								<div class="userName" >
+									[[${data.user.username }]]
+									<div class="liulan" th:text="${data.dtime }"></div>
+									<div th:if="${session.user }">
+										<a href=""th:href="@{/data/deleData(delId=${data.id })}" th:if="${session.user.admin }" >删除</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class="tab hidden">2</div>
+			<div class="tab hidden">3</div>
+			<div class="tab hidden">4</div>
+		</div>
+	</div>
+	<div class="dvquesright">
+		<div>
+			<buton class="btnques" onclick="location.href='add'">发个帖子</buton>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
+
+

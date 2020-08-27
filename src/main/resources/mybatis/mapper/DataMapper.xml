@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.lmj.forum.dao.DataMapper">
+
+<!--	<cache/>-->
+	<!-- 一对一 -->
+	<resultMap type="Data" id="datalist">
+		<id property="id" column="id" />
+		<result property="dtime" column="dtime" />
+		<result property="title" column="title" />
+		<result property="dcontent" column="dcontent" />
+		<result property="ansnum" column="ansnum" />
+		<result property="u_id" column="u_id" />
+		<association property="user" javaType="User">
+			<id property="id" column="id" />
+			<result property="username" column="username" />
+		</association>
+	</resultMap>
+	<select id="FindAllData" resultMap="datalist">
+		SELECT 
+		data.id,
+		data.title,
+		data.dcontent,
+		data.ansnum,
+		data.u_id,
+		data.dtime,
+		user.username
+		FROM data
+        join user 
+        on data.u_id=user.id
+        order by data.dtime DESC
+	</select>
+	
+	<select id="FindDataById" parameterType="String" resultMap="datalist" useCache="false">
+		SELECT 
+		data.id,
+		data.title,
+		data.dcontent,
+		data.ansnum,
+		data.u_id,
+		data.dtime,
+		user.username
+		FROM data
+        join user 
+        on data.u_id=user.id
+		where data.id = #{dataId}
+	</select>
+	
+	<select id="FindDataByTitleAndContentAndUId" resultMap="datalist" useCache="false">
+		SELECT * FROM data where title = #{title} and dcontent = #{dcontent} and u_id = #{uid}
+	</select>
+	
+	<insert id="InsertData" parameterType="Data">
+		<selectKey keyProperty="id" resultType="string" order="BEFORE">
+			select replace(uuid(), '-', '') as id from dual
+		</selectKey>
+		insert into data(id,title,dtime,dcontent,ansnum,u_id) value(#{id},#{title},#{dtime},#{dcontent},#{ansnum},#{u_id})
+	</insert>
+	
+	<update id="UpdateDataAnsnum" >
+		update data set ansnum = #{ansnum} where id = #{id}
+	</update>
+	
+	<delete id="DeleteDataById" parameterType="String" >
+		delete from data where id = #{dataId}
+	</delete>
+	
+	<select id="FindDataByData" parameterType="Data" resultMap="datalist" useCache="false">
+		SELECT * 
+		FROM data
+		<where>
+		<!-- where标签可以去掉开头的AND -->
+			<if test="id!=null and id!=''">
+			and id = #{id}
+			</if>
+			<if test="title!=null and title!=''">
+			and title = #{title} 
+			</if>
+			<if test="dcontent!=null and dcontent!=''">
+			and dcontent = #{dcontent} 
+			</if>
+			<if test="ansnum!=null and ansnum!=''">
+			and ansnum = #{ansnum} 
+			</if>
+			<if test="u_id!=null and u_id!=''">
+			and u_id = #{u_id} 
+			</if>
+		</where> 
+	</select>
+	
+</mapper>
