@@ -51,5 +51,9 @@ Servers/
 
 # Idea project files
 *.iml
-.idea/
+#.idea/
 out/
+HELP.md
+#.mvn/
+#mvnw
+#mvnw.cmd
