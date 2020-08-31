@@ -17,3 +17,6 @@ server:
     include-exception: true
   port: 8080
 
+logging:
+  level:
+    com.lmj.forum.dao: debug

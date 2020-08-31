@@ -5,7 +5,7 @@
   
 <mapper namespace="com.lmj.forum.dao.DataMapper">
 
-<!--	<cache/>-->
+	<cache/>
 	<!-- 一对一 -->
 	<resultMap type="Data" id="datalist">
 		<id property="id" column="id" />
