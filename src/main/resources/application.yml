@@ -3,7 +3,15 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///ssm_forum?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: root
+    password: lvmingji
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    suffix: .html
+#    cache: false
+#  mvc:
+#    static-path-pattern: /static/**
+#  resources:
+#    static-locations: classpath:/static/
 
 mybatis:
   # 指定全局配置文件位置
@@ -15,7 +23,7 @@ server:
   error:
     include-message: always
     include-exception: true
-  port: 8080
+  port: 8081
 
 logging:
   level:

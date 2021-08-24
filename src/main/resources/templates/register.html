@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>注册</title>
-<link rel="stylesheet" href="/asserts/css/login.css" th:href="@{/asserts/css/login.css}"/>
-<link rel="stylesheet" href="/asserts/css/head.css" th:href="@{/asserts/css/head.css}"/>
-<script type="text/javascript" src="/asserts/js/jquery-1.7.2.min.js" th:href="@{/asserts/js/jquery-1.7.2.min.js}"></script>
-<script type="text/javascript">
+<link rel="stylesheet" th:href="@{/asserts/css/login.css}"/>
+<link rel="stylesheet" th:href="@{/asserts/css/head.css}"/>
+<script type="text/javascript" th:src="@{/asserts/js/jquery-1.7.2.min.js}"></script>
+<script type="text/javascript" th:inline="javascript">
 $(function(){
 	
 	$("input[name='username']").blur(verifyUsername);
@@ -17,7 +17,7 @@ $(function(){
 });
 function verifyUsername(){
 	$.ajax({
-		url:encodeURI("/responseJson"),
+		url:[[@{/responseJson}]],
 		type:"post",
 		data:{
 			username:$("input[name='username']").val()
@@ -35,7 +35,7 @@ function verifyUsername(){
 }
 function verifyPassword(){
 	$.ajax({
-		url:encodeURI("/responseJson"),
+		url:[[@{/responseJson}]],
 		type:"post",
 		data:{
 			password:$("input[name='password']").val()
@@ -52,7 +52,7 @@ function verifyPassword(){
 }
 function verifyCheckPassword(){
 	$.ajax({
-		url:encodeURI("/responseJson"),
+		url:[[@{/responseJson}]],
 		type:"post",
 		data:{
 			password:$("input[name='password']").val(),
@@ -70,7 +70,7 @@ function verifyCheckPassword(){
 }
 function verifyPhonenum(){
 	$.ajax({
-		url:encodeURI("/responseJson"),
+		url:[[@{/responseJson}]],
 		type:"post",
 		data:{
 			phonenum:$("input[name='phonenum']").val()
@@ -92,14 +92,14 @@ function verifyPhonenum(){
 <body>
 	<div class="dvhead">
 		<div class="dvlogo">
-			<a href="/index">小小论坛</a>
+			<a th:href="@{/index}">小小论坛</a>
 		</div>
 		<div class="dvreg">
 			
 		</div>
 	</div>
 	<section class="sec">
-		<form action="/registerUser"
+		<form th:action="@{/registerUser}"
 			method="post">
 			<div class="register-box">
 				<label class="username_label"> 用 户 名
@@ -127,7 +127,7 @@ function verifyPhonenum(){
 				<div class="tips" name="error" Style="color: red"></div>
 			</div>
 			<div class="arguement">
-				<a href="login">已有账号,立即登录</a>
+				<a th:href="@{/login}">已有账号,立即登录</a>
 				<div class="tips"></div>
 			</div>
 			<div class="submit_btn">

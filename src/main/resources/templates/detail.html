@@ -8,8 +8,8 @@
 <meta name="keywords" content="fly,layui,前端社区">
 <meta name="description"
 	content="">
-<link rel="stylesheet" href="/asserts/css/layui.css" th:href="@{/asserts/css/layui.css}">
-<link rel="stylesheet" href="/asserts/css/global.css" th:href="@{/asserts/css/global.css}">
+<link rel="stylesheet" th:href="@{/asserts/css/layui.css}">
+<link rel="stylesheet" th:href="@{/asserts/css/global.css}">
 <!-- <script src="res/layui/layui.js"></script> -->
 <!-- <script src="js/jquery.js"></script> -->
 <style type="text/css" rel="stylesheet">
@@ -34,13 +34,13 @@ form {
 				<div class="fly-panel detail-box">
 					<h1 th:text="${data.title }"></h1>
 					<div class="detail-about">
-						<div class="jie-user" href=""> 
-							<img src="/asserts/images/uer.jpg" th:href="@{/asserts/images/uer.jpg}" alt="头像">
+						<div class="jie-user">
+							<img th:src="@{/asserts/images/uer.jpg}" alt="头像" />
 								<cite>[[${data.user.username }]]<em>[[${data.dtime }]]发布</em> </cite>
 						</div>
 						<div class="detail-hits" data-id="{{rows.id}}" th:if="${session.user.admin }">
 							<span class="layui-btn layui-btn-mini jie-admin  layui-btn-danger" type="collect" data-type="add">
-								<a href="" th:href="@{/data/deleData(delId=${data.id })}">删除</a>
+								<a th:href="@{/data/deleData(delId=${data.id })}">删除</a>
 							</span>
 						</div>
 					</div>
@@ -54,8 +54,8 @@ form {
 						<li data-id="12" class="jieda-daan">
 							<a name="item-121212121212"></a>
 							<div class="detail-about detail-about-reply">
-								<a class="jie-user" href=""> 
-								<img src="/asserts/images/uer.jpg" th:href="@{/asserts/images/uer.jpg}" alt="">
+								<a class="jie-user">
+								<img th:src="@{/asserts/images/uer.jpg}" alt="">
 								<cite> 
 									<i th:text="${answer.user.username}"></i>
                 				</cite> </a>
@@ -73,7 +73,7 @@ form {
 <!-- 									<em>12</em> -->
 								<div class="jieda-admin" th:if="${session.user.admin }">
 									<span type="del">
-									<a href="" th:href="@{/data/deleAnswer(delId=${answer.id },dId=${data.id })}" class="layui-btn layui-btn-danger layui-btn-small">删除</a></span>
+									<a th:href="@{/data/deleAnswer(delId=${answer.id },dId=${data.id })}" class="layui-btn layui-btn-danger layui-btn-small">删除</a></span>
 								</div>
 							</div>
 						</li>
@@ -82,7 +82,7 @@ form {
 					</ul>
 					<span id="toName" th:text="${session.user.username}"></span>
 					<div class="layui-form layui-form-pane">
-						<form action="" th:action="@{/data/addAnswer(dId=${data.id})}" method="post">
+						<form th:action="@{/data/addAnswer(dId=${data.id})}" method="post">
 							<div class="layui-form-item layui-form-text">
 								<div class="layui-input-block">
 									<textarea id="L_content" name="acontent" required lay-verify="required" 
@@ -100,7 +100,7 @@ form {
 		</div>
 
 	</div>
- <script type="text/javascript" charset="utf-8" src="/asserts/js/kindeditor.js"></script>
+ <script type="text/javascript" charset="utf-8" th:src="@{/asserts/js/kindeditor.js}"></script>
   <script type="text/javascript">
     KE.show({
         id : 'L_content',

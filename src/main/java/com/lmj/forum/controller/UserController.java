@@ -99,7 +99,7 @@ public class UserController {
         return message;
     }
 
-    @PostMapping("/findPassword")
+    @PostMapping("/findUserPassword")
     public ModelAndView findPassword(User user, String checkPassword) {
         ModelAndView model = new ModelAndView();
 
