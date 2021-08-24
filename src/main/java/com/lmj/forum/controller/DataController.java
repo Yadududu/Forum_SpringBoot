@@ -87,7 +87,7 @@ public class DataController {
     @RequestMapping("/deleData")
     public String deleData(String delId) {
         dataService.DeleteDataById(delId);
-        return "redirect:/index";
+        return "redirect:../index";
     }
 
     @RequestMapping("/deleAnswer")
